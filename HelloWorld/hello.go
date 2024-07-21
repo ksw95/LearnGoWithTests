@@ -2,15 +2,18 @@ package main
 
 import (
 	"fmt"
-
-	"rsc.io/quote"
 )
 
+const englishHelloPrefix = "Hello, "
+
 func Hello(name string) string {
-	return "Hello, " + name
+	if name == "" {
+		name = "World"
+	}
+	return englishHelloPrefix + name
 }
 
 func main() {
-	fmt.Println(quote.Go())
+	//fmt.Println(quote.Go())
 	fmt.Println(Hello("world"))
 }
