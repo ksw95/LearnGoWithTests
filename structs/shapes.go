@@ -6,6 +6,11 @@ type Shape interface {
 	Area() float64
 }
 
+type PeriShape interface {
+	Area() float64
+	Perimeter() float64
+}
+
 type Rectangle struct {
 	Length float64
 	Width  float64
@@ -20,8 +25,12 @@ type Triangle struct {
 	Height float64
 }
 
-func Perimeter(rectangle Rectangle) float64 {
-	return (rectangle.Length + rectangle.Width) * 2
+func (r Rectangle) Perimeter() float64 {
+	return (r.Length + r.Width) * 2
+}
+
+func (c Circle) Perimeter() float64 {
+	return 2 * math.Pi * c.Radius
 }
 
 func (r Rectangle) Area() float64 {
