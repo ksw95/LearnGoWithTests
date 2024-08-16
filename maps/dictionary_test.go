@@ -114,3 +114,15 @@ func TestUpdate(t *testing.T) {
 		assertError(t, err, ErrNoKeyToUpdate)
 	})
 }
+
+func TestDelete(t *testing.T) {
+	t.Run("Deleting key-value pair in map", func(t *testing.T) {
+		key := "test"
+		value := "to delete"
+		dictionary := Dictionary{key: value}
+		dictionary.Delete(key)
+
+		_, err := dictionary.Search(key)
+		assertError(t, err, ErrKeyNotFound)
+	})
+}

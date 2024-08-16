@@ -4,6 +4,7 @@ const (
 	ErrKeyNotFound   = DictionaryErr("value cannot be searched as key is not found")
 	ErrKeyInUse      = DictionaryErr("cannot add new key-value, as key is already in use")
 	ErrNoKeyToUpdate = DictionaryErr("value cannot be updated as key not found")
+	ErrNoKeyToDelete = DictionaryErr("key cannot be updated as key is not found")
 )
 
 type Dictionary map[string]string
@@ -54,4 +55,8 @@ func (d Dictionary) Update(key, value string) error {
 		return err
 	}
 
+}
+
+func (d Dictionary) Delete(key string) {
+	delete(d, key)
 }
