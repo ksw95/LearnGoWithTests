@@ -1,8 +1,9 @@
 package dictionary
 
 const (
-	ErrKeyNotFound = DictionaryErr("key does not exist")
-	ErrKeyInUse    = DictionaryErr("key already in use")
+	ErrKeyNotFound   = DictionaryErr("value cannot be searched as key is not found")
+	ErrKeyInUse      = DictionaryErr("cannot add new key-value, as key is already in use")
+	ErrNoKeyToUpdate = DictionaryErr("value cannot be updated as key not found")
 )
 
 type Dictionary map[string]string
@@ -37,4 +38,20 @@ func (d Dictionary) Add(key, value string) error {
 	}
 
 	return nil
+}
+
+func (d Dictionary) Update(key, value string) error {
+
+	_, err := d.Search(key)
+
+	switch err {
+	case ErrKeyNotFound:
+		return ErrNoKeyToUpdate
+	case nil:
+		d[key] = value
+		return nil
+	default:
+		return err
+	}
+
 }

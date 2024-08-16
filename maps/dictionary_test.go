@@ -90,3 +90,27 @@ func TestAdd(t *testing.T) {
 	})
 
 }
+
+func TestUpdate(t *testing.T) {
+
+	t.Run("update existing key-value pair", func(t *testing.T) {
+		key := "test"
+		existingValue := "this is just a test"
+		dictionary := Dictionary{key: existingValue}
+		newValue := "this is the new value to update"
+		err := dictionary.Update(key, newValue)
+
+		assertError(t, err, nil)
+		assertValue(t, dictionary, key, newValue)
+
+	})
+
+	t.Run("trying to update non-existent key", func(t *testing.T) {
+		dictionary := Dictionary{}
+		key := "newKey"
+		value := "newValue"
+		err := dictionary.Update(key, value)
+
+		assertError(t, err, ErrNoKeyToUpdate)
+	})
+}
